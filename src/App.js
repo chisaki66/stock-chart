@@ -1,23 +1,34 @@
-import logo from './logo.svg';
+import { useEffect , useState } from 'react'
 import './App.css';
+import axios from 'axios'
+import LineChart from './LineChart'
 
 function App() {
+  const URL = "http://api.marketstack.com/v1/tickers";
+  const ACCESS_KEY = `${process.env.REACT_APP_STOCK_CHART_API}`;
+
+  const [stockData, setStockData] = useState({})
+  const [stockPrice, setStockPrice] = useState({});
+
+  useEffect(() => {
+    const getStockData = (symbol) => {
+        axios.get(`${URL}/${symbol}?access_key=${ACCESS_KEY}`)
+        .then(response => {
+            setStockData(response.data)
+        });
+        axios.get(`${URL}/${symbol}/eod/latest?access_key=${ACCESS_KEY}`)
+        .then(response => {
+            setStockPrice(response.data);
+        })
+    }
+    getStockData('AAPL');
+  },[]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>{ stockData.name }</h1>
+      <h2>${ stockPrice.close }</h2>
+      <LineChart />
     </div>
   );
 }
