@@ -3,6 +3,7 @@ import './LineChart.css'
 import { Line } from 'react-chartjs-2';
 import { Chart, registerables } from 'chart.js';
 import axios from 'axios'
+import { format } from 'date-fns';
 
 Chart.register(...registerables);
 
@@ -20,7 +21,7 @@ function LineChart() {
         .then(response => {
           for ( let stock of response.data.data){
             data.push(stock.close)
-            labels.push(stock.date)
+            labels.push(format(stock.date, 'MM/dd/yyyy'))
           }
       });
       setStockData({
