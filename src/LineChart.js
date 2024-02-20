@@ -38,7 +38,7 @@ function LineChart() {
   },[]);
 
   return (
-    <div className="chart">
+    <div className="LineChart">
         {stockData && <Line data={stockData} />}
     </div>
   )
