@@ -99,13 +99,28 @@ function App() {
         <input
           type="radio"
           name="period"
+          onChange={() => onChangeStockPeriodDate(3)}
+        /> 3ヶ月        
+        <input
+          type="radio"
+          name="period"
           onChange={() => onChangeStockPeriodDate(6)}
         /> 半年
         <input
           type="radio"
           name="period"
           onChange={() => onChangeStockPeriodDate(12)}
-        /> 1年        
+        /> 1年
+        <input
+          type="radio"
+          name="period"
+          onChange={() => onChangeStockPeriodDate(24)}
+        /> 2年
+        <input
+          type="radio"
+          name="period"
+          onChange={() => onChangeStockPeriodDate(36)}
+        /> 3年                         
       </div>}    
       <div className='Chart'>
         <LineChart stockMonthData={stockMonthData} />
