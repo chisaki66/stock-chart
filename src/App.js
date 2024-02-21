@@ -8,8 +8,7 @@ import './App.css';
 Chart.register(...registerables);
 
 function App() {
-  const tickersURL = "http://api.marketstack.com/v1/tickers";
-  const eodURL = "http://api.marketstack.com/v1/eod";
+  const URL = "http://api.marketstack.com/v1";
   const ACCESS_KEY = `${process.env.REACT_APP_STOCK_CHART_API}`;
 
   const [stockSymbol, setStockSymbol] = useState('');
@@ -26,14 +25,14 @@ function App() {
   };
 
   const getStockData = (symbol) => {
-    axios.get(`${tickersURL}/${symbol}?access_key=${ACCESS_KEY}`)
+    axios.get(`${URL}/tickers/${symbol}?access_key=${ACCESS_KEY}`)
       .then(response => {
         setStockData(response.data)
       });
   }
 
   const getStockPrice = (symbol) => {
-    axios.get(`${tickersURL}/${symbol}/eod/latest?access_key=${ACCESS_KEY}`)
+    axios.get(`${URL}/tickers/${symbol}/eod/latest?access_key=${ACCESS_KEY}`)
       .then(response => {
         setStockPrice(response.data);
       })
@@ -42,7 +41,7 @@ function App() {
   const getStockMonthData = async (symbol) => {
     let data = [];
     let labels = [];
-    await axios.get(`${eodURL}?access_key=${ACCESS_KEY}&symbols=${symbol}&date_from=2024-01-17&date_to=2024-02-16&sort=ASC`)
+    await axios.get(`${URL}/eod?access_key=${ACCESS_KEY}&symbols=${symbol}&date_from=2024-01-17&date_to=2024-02-16&sort=ASC`)
       .then(response => {
         for ( let stock of response.data.data){
           data.push(stock.close)
