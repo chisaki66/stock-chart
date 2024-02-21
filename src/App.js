@@ -47,7 +47,7 @@ function App() {
   const getStockPeriodData = async (symbol, period) => {
     let data = [];
     let labels = [];
-    await axios.get(`${URL}/eod?access_key=${ACCESS_KEY}&symbols=${symbol}&date_from=${format(subMonths(new Date(), period), 'yyyy-MM-dd')}&date_to=${format(new Date(), 'yyyy-MM-dd')}&sort=ASC`)
+    await axios.get(`${URL}/eod?access_key=${ACCESS_KEY}&symbols=${symbol}&date_from=${format(subMonths(new Date(), period), 'yyyy-MM-dd')}&date_to=${format(new Date(), 'yyyy-MM-dd')}&limit=1000&sort=ASC`)
       .then(response => {
         for ( let stock of response.data.data){
           data.push(stock.close)
