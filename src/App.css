@@ -14,6 +14,11 @@
   display: flex;
 }
 
+.StockDataList {
+  display: flex;
+  list-style: none;
+}
+
 .StockSearch {
   margin: 0 0 0 auto;
 }

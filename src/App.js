@@ -70,7 +70,13 @@ function App() {
       <div className='Header'>
         <div className='StockData'>
           <h1>{stockData.name}</h1>
-          <h2>{stockPrice.close}</h2>
+          <ul className='StockDataList'>
+            <li>始値 {stockPrice.open}</li>
+            <li>高値 {stockPrice.high}</li>
+            <li>安値 {stockPrice.low}</li>
+            <li>終値 {stockPrice.close}</li>
+            <li>出来高 {stockPrice.volume}</li>
+          </ul>
         </div>        
         <div className='StockSearch'>
           <input
