@@ -1,6 +1,6 @@
 import React from 'react'
 import { Line } from 'react-chartjs-2';
-import './LineChart.css'
+import './LineChart.scss'
 
 function LineChart({ stockMonthData }) {
   return (

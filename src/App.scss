@@ -17,6 +17,10 @@
 .StockDataList {
   display: flex;
   list-style: none;
+
+  li {
+    margin-right: 20px;
+  }
 }
 
 .StockSearch {

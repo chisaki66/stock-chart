@@ -3,7 +3,7 @@ import axios from 'axios';
 import LineChart from './LineChart';
 import { Chart, registerables } from 'chart.js';
 import { format, subMonths } from 'date-fns';
-import './App.css';
+import './App.scss';
 
 Chart.register(...registerables);
 
@@ -15,7 +15,7 @@ function App() {
   const [stockData, setStockData] = useState({});
   const [stockPrice, setStockPrice] = useState({});
   const [stockMonthData, setStockMonthData] = useState(null);
-  const [isShowPeriodList, setShowPeriodList] = useState(false)
+  const [isShow, setShow] = useState(false)
 
   const onChangeStockSymbol = (event) => setStockSymbol(event.target.value);
 
@@ -23,7 +23,7 @@ function App() {
     getStockData(stockSymbol);
     getStockPrice(stockSymbol);
     getStockPeriodData(stockSymbol, 1);
-    setShowPeriodList(true);
+    setShow(true);
   };
 
   const onChangeStockPeriodDate = (period) => {
@@ -69,15 +69,16 @@ function App() {
     <div className="App">
       <div className='Header'>
         <div className='StockData'>
-          <h1>{stockData.name}</h1>
+          <h1>{stockData.name}</h1>          
+          {isShow &&
           <ul className='StockDataList'>
-            <li>始値 {stockPrice.open}</li>
-            <li>高値 {stockPrice.high}</li>
-            <li>安値 {stockPrice.low}</li>
-            <li>終値 {stockPrice.close}</li>
-            <li>出来高 {stockPrice.volume}</li>
-          </ul>
-        </div>        
+            <li>始値<br/>{stockPrice.open}</li>
+            <li>高値<br/>{stockPrice.high}</li>
+            <li>安値<br/>{stockPrice.low}</li>
+            <li>終値<br/>{stockPrice.close}</li>
+            <li>出来高<br/>{stockPrice.volume}</li>
+          </ul>}
+        </div>
         <div className='StockSearch'>
           <input
             type="text"
@@ -88,7 +89,7 @@ function App() {
           <button onClick={handleClick}>SEARCH</button>
         </div>
       </div>
-      {isShowPeriodList && 
+      {isShow &&
       <div>
         <input
           type="radio"
