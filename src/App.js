@@ -83,10 +83,11 @@ function App() {
           <input
             type="text"
             name="symbol"
+            placeholder="銘柄を入力してください"
             value={stockSymbol}
             onChange={onChangeStockSymbol}
           />
-          <button onClick={handleClick}>SEARCH</button>
+          <button onClick={handleClick}></button>
         </div>
       </div>
       {isShow &&
