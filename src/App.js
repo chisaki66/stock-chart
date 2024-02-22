@@ -86,22 +86,28 @@ function App() {
           <h1>{stockData.name}</h1>          
           {isShow &&
           <ul className="StockDataList">
-            <li>始値<br/><b>{stockPrice.open}</b></li>
-            <li>高値<br/><b>{stockPrice.high}</b></li>
-            <li>安値<br/><b>{stockPrice.low}</b></li>
-            <li>終値<br/><b>{stockPrice.close}</b></li>
-            <li>出来高<br/><b>{stockPrice.volume}</b></li>
+            <li>始値<br /><b>{stockPrice.open}</b></li>
+            <li>高値<br /><b>{stockPrice.high}</b></li>
+            <li>安値<br /><b>{stockPrice.low}</b></li>
+            <li>終値<br /><b>{stockPrice.close}</b></li>
+            <li>出来高<br /><b>{stockPrice.volume}</b></li>
           </ul>}
+          {isShow && <p>※ 現地時刻の前日のデータ</p>}
         </div>
         <div className="StockSearch">
-          <input
-            type="text"
-            name="symbol"
-            placeholder="銘柄を入力してください"
-            value={stockSymbol}
-            onChange={onChangeStockSymbol}
-          />
-          <button onClick={handleClick}></button>
+          <div className="StockSearch__Form">
+            <input
+              type="text"
+              name="symbol"
+              placeholder="銘柄を入力してください"
+              value={stockSymbol}
+              onChange={onChangeStockSymbol}
+            />
+            <button onClick={handleClick}></button>
+          </div>
+          <div className="StockSearch__Text">
+            <p>銘柄のリストは <a href="https://marketstack.com/search" target="_blank">こちら</a> からご参照ください</p>
+          </div>
         </div>
       </div>
       {isShow &&
