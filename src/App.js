@@ -72,11 +72,11 @@ function App() {
           <h1>{stockData.name}</h1>          
           {isShow &&
           <ul className="StockDataList">
-            <li>始値<br/>{stockPrice.open}</li>
-            <li>高値<br/>{stockPrice.high}</li>
-            <li>安値<br/>{stockPrice.low}</li>
-            <li>終値<br/>{stockPrice.close}</li>
-            <li>出来高<br/>{stockPrice.volume}</li>
+            <li>始値<br/><b>{stockPrice.open}</b></li>
+            <li>高値<br/><b>{stockPrice.high}</b></li>
+            <li>安値<br/><b>{stockPrice.low}</b></li>
+            <li>終値<br/><b>{stockPrice.close}</b></li>
+            <li>出来高<br/><b>{stockPrice.volume}</b></li>
           </ul>}
         </div>
         <div className="StockSearch">
@@ -91,50 +91,50 @@ function App() {
         </div>
       </div>
       {isShow &&
-      <ul className="StockChartPeriod">
-        <li>
+      <div class="StockChartPeriod">
+        <label>
           <input
             type="radio"
             name="period"
             onChange={() => onChangeStockPeriodDate(1)}
           /> 1ヶ月
-        </li>
-        <li>
+        </label>
+        <label>
           <input
             type="radio"
             name="period"
             onChange={() => onChangeStockPeriodDate(3)}
           /> 3ヶ月
-        </li>
-        <li>
+        </label>
+        <label>
           <input
             type="radio"
             name="period"
             onChange={() => onChangeStockPeriodDate(6)}
           /> 6ヶ月
-        </li>
-        <li>
+        </label>
+        <label>
           <input
             type="radio"
             name="period"
             onChange={() => onChangeStockPeriodDate(12)}
           /> 1年
-        </li>
-        <li>
+        </label>
+        <label>
           <input
             type="radio"
             name="period"
             onChange={() => onChangeStockPeriodDate(24)}
           /> 2年
-        </li>
-        <li>
+        </label>
+        <label>
           <input
             type="radio"
             name="period"
             onChange={() => onChangeStockPeriodDate(36)}
           /> 3年
-        </li>                         
-      </ul>}    
+        </label>
+      </div>}
       <div className="Chart">
         <LineChart stockMonthData={stockMonthData} />
       </div>
