@@ -110,7 +110,7 @@ function App() {
             <button onClick={handleClick}></button>
           </div>
           <div className="StockSearch__Text">
-            <p>銘柄のリストは <a href="https://marketstack.com/search" target="_blank">こちら</a> からご参照ください</p>
+            <p>銘柄のリストは <a href="https://marketstack.com/search" target="_blank">こちら</a> からご参照ください<br />Symbol をご入力ください</p>
           </div>
         </div>
       </div>
