@@ -159,7 +159,7 @@ function App() {
             <div className="StockSearch__Text">
               <p>
                 銘柄のリストは{' '}
-                <a href="https://marketstack.com/search" target="_blank">
+                <a href="https://marketstack.com/search" target="_blank" rel="noopener noreferrer">
                   こちら
                 </a>{' '}
                 からご参照ください
