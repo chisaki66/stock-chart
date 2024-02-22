@@ -16,11 +16,17 @@ function App() {
   const [stockPrice, setStockPrice] = useState({});
   const [stockMonthData, setStockMonthData] = useState(null);
   const [isShow, setShow] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('');
 
   const getStockData = (symbol) => {
     axios.get(`${URL}/tickers/${symbol}?access_key=${ACCESS_KEY}`)
       .then(response => {
         setStockData(response.data)
+      })
+      .catch(error => {
+        console.error('Failed to fetch stock data', error.message);
+        setErrorMessage('株式データの取得に失敗しました');
+        setShow(false);
       });
   }
 
@@ -29,6 +35,11 @@ function App() {
       .then(response => {
         setStockPrice(response.data);
       })
+      .catch(error => {
+        console.error('Failed to fetch stock data', error.message);        
+        setErrorMessage('株式データの取得に失敗しました');
+        setShow(false);
+      });
   }  
 
   const getStockPeriodData = async (symbol, period) => {
@@ -40,7 +51,11 @@ function App() {
           data.push(stock.close)
           labels.push(format(stock.date, 'MM/dd/yyyy'))
         }
-    });
+        })
+        .catch(error => {
+          console.error('Failed to fetch stock data', error.message);
+          setErrorMessage('株式データの取得に失敗しました');
+        });
     setStockMonthData({
       labels: labels,
       datasets:[
@@ -84,99 +99,102 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <div className="Header">
-        <div className="StockData">
-          <h1>{stockData.name}</h1>          
+    <>
+      {(errorMessage && isShow === false) && <div className="ErrorMessage"><p>{errorMessage}</p></div>}
+      <div className="App">
+        <div className="Header">
           {isShow &&
-          <ul className="StockDataList">
-            <li>始値<br /><b>{stockPrice.open}</b></li>
-            <li>高値<br /><b>{stockPrice.high}</b></li>
-            <li>安値<br /><b>{stockPrice.low}</b></li>
-            <li>終値<br /><b>{stockPrice.close}</b></li>
-            <li>出来高<br /><b>{stockPrice.volume}</b></li>
-          </ul>}
-          {isShow && <p>※ 現地時刻の前日のデータを取得しています</p>}
+          <div className="StockData">
+            <h1>{stockData.name}</h1>          
+            <ul className="StockDataList">
+              <li>始値<br /><b>{stockPrice.open}</b></li>
+              <li>高値<br /><b>{stockPrice.high}</b></li>
+              <li>安値<br /><b>{stockPrice.low}</b></li>
+              <li>終値<br /><b>{stockPrice.close}</b></li>
+              <li>出来高<br /><b>{stockPrice.volume}</b></li>
+            </ul>
+            <p>※ 現地時刻の前日のデータを取得しています</p>
+          </div>}
+          <div className="StockSearch">
+            <div className="StockSearch__Form">
+              <input
+                type="text"
+                name="symbol"
+                placeholder="銘柄を入力してください"
+                value={stockSymbol}
+                onChange={onChangeStockSymbol}
+              />
+              <button onClick={handleClick}></button>
+            </div>
+            <div className="StockSearch__Text">
+              <p>銘柄のリストは <a href="https://marketstack.com/search" target="_blank">こちら</a> からご参照ください<br />Symbol をご入力ください</p>
+            </div>
+          </div>
         </div>
-        <div className="StockSearch">
-          <div className="StockSearch__Form">
+        {isShow &&
+        <div className="StockChartPeriod">
+          <label>
             <input
-              type="text"
-              name="symbol"
-              placeholder="銘柄を入力してください"
-              value={stockSymbol}
-              onChange={onChangeStockSymbol}
-            />
-            <button onClick={handleClick}></button>
-          </div>
-          <div className="StockSearch__Text">
-            <p>銘柄のリストは <a href="https://marketstack.com/search" target="_blank">こちら</a> からご参照ください<br />Symbol をご入力ください</p>
-          </div>
+              type="radio"
+              name="period"
+              onChange={() => onChangeStockDayPeriodDate(1)}
+            /> 1日
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="period"
+              onChange={() => onChangeStockDayPeriodDate(7)}
+            /> 1週
+          </label>                
+          <label>
+            <input
+              type="radio"
+              name="period"
+              onChange={() => onChangeStockMonthPeriodDate(1)}
+            /> 1ヶ月
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="period"
+              onChange={() => onChangeStockMonthPeriodDate(3)}
+            /> 3ヶ月
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="period"
+              onChange={() => onChangeStockMonthPeriodDate(6)}
+            /> 6ヶ月
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="period"
+              onChange={() => onChangeStockMonthPeriodDate(12)}
+            /> 1年
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="period"
+              onChange={() => onChangeStockMonthPeriodDate(24)}
+            /> 2年
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="period"
+              onChange={() => onChangeStockMonthPeriodDate(36)}
+            /> 3年
+          </label>
+        </div>}
+        <div className="Chart">
+          <LineChart stockMonthData={stockMonthData} />
         </div>
       </div>
-      {isShow &&
-      <div className="StockChartPeriod">
-        <label>
-          <input
-            type="radio"
-            name="period"
-            onChange={() => onChangeStockDayPeriodDate(1)}
-          /> 1日
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="period"
-            onChange={() => onChangeStockDayPeriodDate(7)}
-          /> 1週
-        </label>                
-        <label>
-          <input
-            type="radio"
-            name="period"
-            onChange={() => onChangeStockMonthPeriodDate(1)}
-          /> 1ヶ月
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="period"
-            onChange={() => onChangeStockMonthPeriodDate(3)}
-          /> 3ヶ月
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="period"
-            onChange={() => onChangeStockMonthPeriodDate(6)}
-          /> 6ヶ月
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="period"
-            onChange={() => onChangeStockMonthPeriodDate(12)}
-          /> 1年
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="period"
-            onChange={() => onChangeStockMonthPeriodDate(24)}
-          /> 2年
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="period"
-            onChange={() => onChangeStockMonthPeriodDate(36)}
-          /> 3年
-        </label>
-      </div>}
-      <div className="Chart">
-        <LineChart stockMonthData={stockMonthData} />
-      </div>
-    </div>
+    </>
   );
 }
 
