@@ -58,7 +58,7 @@
     border: 2px solid #2589d0;
     border-radius: 3px;
   }
-  
+
   &__Form input {
     width: 230px;
     height: 35px;
@@ -68,11 +68,11 @@
     font-size: 1em;
     outline: none;
   }
-  
-  &__Form input::placeholder{
+
+  &__Form input::placeholder {
     color: #777777;
   }
-  
+
   &__Form button {
     display: flex;
     justify-content: center;
@@ -83,7 +83,7 @@
     background-color: #2589d0;
     cursor: pointer;
   }
-  
+
   &__Form button::after {
     width: 24px;
     height: 24px;
@@ -98,9 +98,9 @@
     position: relative;
     max-width: 300px;
     margin-top: 20px;
-    padding: .8em 1.2em;
+    padding: 0.8em 1.2em;
     border-radius: 5px;
-    background-color: #E3F1FF;
+    background-color: #e3f1ff;
     color: #333333;
     font-size: 14px;
 
@@ -109,24 +109,24 @@
       font-weight: bold;
       color: #2589d0;
       display: inline-block;
-      transition:.3s;
-      transform: scale(1);      
+      transition: 0.3s;
+      transform: scale(1);
     }
 
-    a:hover{
+    a:hover {
       color: #63beff;
       transform: scale(1.05);
-    }    
+    }
   }
 
   &__Text::before {
-      position: absolute;
-      top: -15px;
-      width: 30px;
-      height: 15px;
-      background-color: #E3F1FF;
-      clip-path: polygon(50% 0, 0 100%, 100% 100%);
-      content: '';
+    position: absolute;
+    top: -15px;
+    width: 30px;
+    height: 15px;
+    background-color: #e3f1ff;
+    clip-path: polygon(50% 0, 0 100%, 100% 100%);
+    content: '';
   }
 }
 
@@ -140,17 +140,17 @@
   flex: 1 1;
   order: -1;
   min-width: 70px;
-  padding: .7em 1em;
+  padding: 0.7em 1em;
   background-color: #f2f2f2;
   color: #999;
   font-weight: 600;
-  font-size: .9em;
+  font-size: 0.9em;
   text-align: center;
   cursor: pointer;
 }
 
 .StockChartPeriod > label:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .StockChartPeriod input {
