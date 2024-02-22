@@ -120,7 +120,7 @@ function App() {
               <input
                 type="text"
                 name="symbol"
-                placeholder="銘柄を入力してください"
+                placeholder="例: AAPL"
                 value={stockSymbol}
                 onChange={onChangeStockSymbol}
               />
