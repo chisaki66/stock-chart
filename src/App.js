@@ -96,7 +96,7 @@ function App() {
             <li>終値<br /><b>{stockPrice.close}</b></li>
             <li>出来高<br /><b>{stockPrice.volume}</b></li>
           </ul>}
-          {isShow && <p>※ 現地時刻の前日のデータ</p>}
+          {isShow && <p>※ 現地時刻の前日のデータを取得しています</p>}
         </div>
         <div className="StockSearch">
           <div className="StockSearch__Form">
