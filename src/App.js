@@ -115,7 +115,7 @@ function App() {
         </div>
       </div>
       {isShow &&
-      <div class="StockChartPeriod">
+      <div className="StockChartPeriod">
         <label>
           <input
             type="radio"
