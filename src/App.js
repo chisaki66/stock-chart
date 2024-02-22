@@ -65,6 +65,10 @@ function App() {
   }
 
   const handleClick = () => {
+    for (const element of document.getElementsByName('period')) {
+      element.checked = false;
+    }
+    
     getStockData(stockSymbol);
     getStockPrice(stockSymbol);
     getStockMonthPeriodData(stockSymbol, 1);
