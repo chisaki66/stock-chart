@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import LineChart from './LineChart';
 import { Chart, registerables } from 'chart.js';
+import { Line } from 'react-chartjs-2';
 import { format, subDays, subMonths } from 'date-fns';
 import './App.scss';
 
@@ -191,7 +191,7 @@ function App() {
           </label>
         </div>}
         <div className="Chart">
-          <LineChart stockMonthData={stockMonthData} />
+          {stockMonthData && <Line data={stockMonthData} />}
         </div>
       </div>
     </>
