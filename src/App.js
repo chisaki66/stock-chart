@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import LineChart from './LineChart';
 import { Chart, registerables } from 'chart.js';
-import { format, subMonths } from 'date-fns';
+import { format, subDays, subMonths } from 'date-fns';
 import './App.scss';
 
 Chart.register(...registerables);
@@ -16,19 +16,6 @@ function App() {
   const [stockPrice, setStockPrice] = useState({});
   const [stockMonthData, setStockMonthData] = useState(null);
   const [isShow, setShow] = useState(false)
-
-  const onChangeStockSymbol = (event) => setStockSymbol(event.target.value);
-
-  const handleClick = () => {
-    getStockData(stockSymbol);
-    getStockPrice(stockSymbol);
-    getStockPeriodData(stockSymbol, 1);
-    setShow(true);
-  };
-
-  const onChangeStockPeriodDate = (period) => {
-    getStockPeriodData(stockSymbol, period);
-  }
 
   const getStockData = (symbol) => {
     axios.get(`${URL}/tickers/${symbol}?access_key=${ACCESS_KEY}`)
@@ -47,7 +34,7 @@ function App() {
   const getStockPeriodData = async (symbol, period) => {
     let data = [];
     let labels = [];
-    await axios.get(`${URL}/eod?access_key=${ACCESS_KEY}&symbols=${symbol}&date_from=${format(subMonths(new Date(), period), 'yyyy-MM-dd')}&date_to=${format(new Date(), 'yyyy-MM-dd')}&limit=1000&sort=ASC`)
+    await axios.get(`${URL}/eod?access_key=${ACCESS_KEY}&symbols=${symbol}&date_from=${period}&date_to=${format(new Date(), 'yyyy-MM-dd')}&limit=1000&sort=ASC`)
       .then(response => {
         for ( let stock of response.data.data){
           data.push(stock.close)
@@ -63,7 +50,34 @@ function App() {
         }
       ]
     })
-  } 
+  }
+
+  const onChangeStockSymbol = (event) => setStockSymbol(event.target.value);
+
+  const getStockDayPeriodData = (symbol, period) => {
+    const subDaysDate = format(subDays(new Date(), period), 'yyyy-MM-dd')
+    getStockPeriodData(symbol, subDaysDate)
+  }  
+
+  const getStockMonthPeriodData = (symbol, period) => {
+    const subMonthsDate = format(subMonths(new Date(), period), 'yyyy-MM-dd')
+    getStockPeriodData(symbol, subMonthsDate)
+  }
+
+  const handleClick = () => {
+    getStockData(stockSymbol);
+    getStockPrice(stockSymbol);
+    getStockMonthPeriodData(stockSymbol, 1);
+    setShow(true);
+  };
+
+  const onChangeStockDayPeriodDate = (period) => {
+    getStockDayPeriodData(stockSymbol, period);
+  }  
+
+  const onChangeStockMonthPeriodDate = (period) => {
+    getStockMonthPeriodData(stockSymbol, period);
+  }
 
   return (
     <div className="App">
@@ -96,42 +110,56 @@ function App() {
           <input
             type="radio"
             name="period"
-            onChange={() => onChangeStockPeriodDate(1)}
+            onChange={() => onChangeStockDayPeriodDate(1)}
+          /> 1日
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="period"
+            onChange={() => onChangeStockDayPeriodDate(7)}
+          /> 1週
+        </label>                
+        <label>
+          <input
+            type="radio"
+            name="period"
+            onChange={() => onChangeStockMonthPeriodDate(1)}
           /> 1ヶ月
         </label>
         <label>
           <input
             type="radio"
             name="period"
-            onChange={() => onChangeStockPeriodDate(3)}
+            onChange={() => onChangeStockMonthPeriodDate(3)}
           /> 3ヶ月
         </label>
         <label>
           <input
             type="radio"
             name="period"
-            onChange={() => onChangeStockPeriodDate(6)}
+            onChange={() => onChangeStockMonthPeriodDate(6)}
           /> 6ヶ月
         </label>
         <label>
           <input
             type="radio"
             name="period"
-            onChange={() => onChangeStockPeriodDate(12)}
+            onChange={() => onChangeStockMonthPeriodDate(12)}
           /> 1年
         </label>
         <label>
           <input
             type="radio"
             name="period"
-            onChange={() => onChangeStockPeriodDate(24)}
+            onChange={() => onChangeStockMonthPeriodDate(24)}
           /> 2年
         </label>
         <label>
           <input
             type="radio"
             name="period"
-            onChange={() => onChangeStockPeriodDate(36)}
+            onChange={() => onChangeStockMonthPeriodDate(36)}
           /> 3年
         </label>
       </div>}
