@@ -8,7 +8,7 @@ import './App.scss';
 Chart.register(...registerables);
 
 function App() {
-  const URL = 'http://api.marketstack.com/v1';
+  const URL = `${process.env.REACT_APP_MARKET_STACK_URL}`;
   const ACCESS_KEY = `${process.env.REACT_APP_STOCK_CHART_API}`;
 
   const [stockSymbol, setStockSymbol] = useState('');
