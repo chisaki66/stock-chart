@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Chart, registerables } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { format, subDays, subMonths } from 'date-fns';
+import { format, subMonths } from 'date-fns';
 import './App.scss';
 import ErrorMessage from './components/ErrorMessage';
 import Header from './components/Header';
+import StockChartPeriod from './components/StockChartPeriod';
 
 Chart.register(...registerables);
 
@@ -77,18 +78,9 @@ function App() {
 
   const handleOnChangeStockSymbol = (event) => setStockSymbol(event.target.value);
 
-  const getStockDayPeriodData = (symbol, period) => {
-    const subDaysDate = format(subDays(new Date(), period), 'yyyy-MM-dd');
-    getStockPeriodData(symbol, subDaysDate);
-  };
-
   const getStockMonthPeriodData = (symbol, period) => {
     const subMonthsDate = format(subMonths(new Date(), period), 'yyyy-MM-dd');
     getStockPeriodData(symbol, subMonthsDate);
-  };
-
-  const handleOnChangeStockDayPeriodDate = (period) => {
-    getStockDayPeriodData(stockSymbol, period);
   };
 
   const handleOnChangeStockMonthPeriodDate = (period) => {
@@ -118,74 +110,12 @@ function App() {
           onChange={handleOnChangeStockSymbol}
           onClick={handleOnClick}
         />
-        {isShow ? (
-          <div className="stock-chart-period">
-            <label>
-              <input
-                type="radio"
-                name="period"
-                onChange={() => handleOnChangeStockDayPeriodDate(1)}
-              />{' '}
-              1日
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="period"
-                onChange={() => handleOnChangeStockDayPeriodDate(7)}
-              />{' '}
-              1週
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="period"
-                onChange={() => handleOnChangeStockMonthPeriodDate(1)}
-              />{' '}
-              1ヶ月
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="period"
-                onChange={() => handleOnChangeStockMonthPeriodDate(3)}
-              />{' '}
-              3ヶ月
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="period"
-                onChange={() => handleOnChangeStockMonthPeriodDate(6)}
-              />{' '}
-              6ヶ月
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="period"
-                onChange={() => handleOnChangeStockMonthPeriodDate(12)}
-              />{' '}
-              1年
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="period"
-                onChange={() => handleOnChangeStockMonthPeriodDate(24)}
-              />{' '}
-              2年
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="period"
-                onChange={() => handleOnChangeStockMonthPeriodDate(36)}
-              />{' '}
-              3年
-            </label>
-          </div>
-        ) : null}
+        <StockChartPeriod
+          isShow={isShow}
+          stockSymbol={stockSymbol}
+          getStockPeriodData={getStockPeriodData}
+          handleOnChangeStockMonthPeriodDate={handleOnChangeStockMonthPeriodDate}
+        />
         <div className="chart">{stockMonthData && <Line data={stockMonthData} />}</div>
       </div>
     </>
