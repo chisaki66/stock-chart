@@ -4,6 +4,7 @@ import { Chart, registerables } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { format, subDays, subMonths } from 'date-fns';
 import './App.scss';
+import ErrorMessage from './ErrorMessage';
 
 Chart.register(...registerables);
 
@@ -106,11 +107,7 @@ function App() {
 
   return (
     <>
-      {errorMessage && !isShow ? (
-        <div className="error-message">
-          <p>{errorMessage}</p>
-        </div>
-      ) : null}
+      <ErrorMessage errorMessage={errorMessage} isShow={isShow} />
       <div className="app">
         <div className="header">
           {isShow ? (
