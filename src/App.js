@@ -72,7 +72,7 @@ function App() {
     });
   };
 
-  const onChangeStockSymbol = (event) => setStockSymbol(event.target.value);
+  const handleOnChangeStockSymbol = (event) => setStockSymbol(event.target.value);
 
   const getStockDayPeriodData = (symbol, period) => {
     const subDaysDate = format(subDays(new Date(), period), 'yyyy-MM-dd');
@@ -84,28 +84,28 @@ function App() {
     getStockPeriodData(symbol, subMonthsDate);
   };
 
-  const handleClick = () => {
+  const handleOnChangeStockDayPeriodDate = (period) => {
+    getStockDayPeriodData(stockSymbol, period);
+  };
+
+  const handleOnChangeStockMonthPeriodDate = (period) => {
+    getStockMonthPeriodData(stockSymbol, period);
+  };
+
+  const handleOnClick = () => {
     for (const element of document.getElementsByName('period')) {
       element.checked = false;
     }
 
     getStockData(stockSymbol);
     getStockPrice(stockSymbol);
-    getStockMonthPeriodData(stockSymbol, 1);
+    handleOnChangeStockMonthPeriodDate(1);
     setShow(true);
-  };
-
-  const onChangeStockDayPeriodDate = (period) => {
-    getStockDayPeriodData(stockSymbol, period);
-  };
-
-  const onChangeStockMonthPeriodDate = (period) => {
-    getStockMonthPeriodData(stockSymbol, period);
   };
 
   return (
     <>
-      {errorMessage && isShow === false && (
+      {errorMessage && !isShow && (
         <div className="ErrorMessage">
           <p>{errorMessage}</p>
         </div>
@@ -152,9 +152,9 @@ function App() {
                 name="symbol"
                 placeholder="例: AAPL"
                 value={stockSymbol}
-                onChange={onChangeStockSymbol}
+                onChange={handleOnChangeStockSymbol}
               />
-              <button onClick={handleClick}></button>
+              <button onClick={handleOnClick}></button>
             </div>
             <div className="StockSearch__Text">
               <p>
@@ -172,35 +172,67 @@ function App() {
         {isShow && (
           <div className="StockChartPeriod">
             <label>
-              <input type="radio" name="period" onChange={() => onChangeStockDayPeriodDate(1)} />{' '}
+              <input
+                type="radio"
+                name="period"
+                onChange={() => handleOnChangeStockDayPeriodDate(1)}
+              />{' '}
               1日
             </label>
             <label>
-              <input type="radio" name="period" onChange={() => onChangeStockDayPeriodDate(7)} />{' '}
+              <input
+                type="radio"
+                name="period"
+                onChange={() => handleOnChangeStockDayPeriodDate(7)}
+              />{' '}
               1週
             </label>
             <label>
-              <input type="radio" name="period" onChange={() => onChangeStockMonthPeriodDate(1)} />{' '}
+              <input
+                type="radio"
+                name="period"
+                onChange={() => handleOnChangeStockMonthPeriodDate(1)}
+              />{' '}
               1ヶ月
             </label>
             <label>
-              <input type="radio" name="period" onChange={() => onChangeStockMonthPeriodDate(3)} />{' '}
+              <input
+                type="radio"
+                name="period"
+                onChange={() => handleOnChangeStockMonthPeriodDate(3)}
+              />{' '}
               3ヶ月
             </label>
             <label>
-              <input type="radio" name="period" onChange={() => onChangeStockMonthPeriodDate(6)} />{' '}
+              <input
+                type="radio"
+                name="period"
+                onChange={() => handleOnChangeStockMonthPeriodDate(6)}
+              />{' '}
               6ヶ月
             </label>
             <label>
-              <input type="radio" name="period" onChange={() => onChangeStockMonthPeriodDate(12)} />{' '}
+              <input
+                type="radio"
+                name="period"
+                onChange={() => handleOnChangeStockMonthPeriodDate(12)}
+              />{' '}
               1年
             </label>
             <label>
-              <input type="radio" name="period" onChange={() => onChangeStockMonthPeriodDate(24)} />{' '}
+              <input
+                type="radio"
+                name="period"
+                onChange={() => handleOnChangeStockMonthPeriodDate(24)}
+              />{' '}
               2年
             </label>
             <label>
-              <input type="radio" name="period" onChange={() => onChangeStockMonthPeriodDate(36)} />{' '}
+              <input
+                type="radio"
+                name="period"
+                onChange={() => handleOnChangeStockMonthPeriodDate(36)}
+              />{' '}
               3年
             </label>
           </div>
