@@ -3,7 +3,7 @@
   padding: 0;
 }
 
-.ErrorMessage {
+.error-message {
   background-color: red;
 
   p {
@@ -17,25 +17,25 @@
   }
 }
 
-.App {
+.app {
   width: 1024px;
   margin-top: 60px;
   margin-right: auto;
   margin-left: auto;
 }
 
-.Header {
+.header {
   display: flex;
 }
 
-.StockData {
+.stock-data {
   p {
     margin-top: 10px;
     font-size: 14px;
   }
 }
 
-.StockDataList {
+.stock-data-list {
   display: flex;
   list-style: none;
   margin-top: 20px;
@@ -46,10 +46,10 @@
   }
 }
 
-.StockSearch {
+.stock-search {
   margin: 0 0 20px auto;
 
-  &__Form {
+  &__form {
     display: flex;
     justify-content: space-between;
     height: 35px;
@@ -59,7 +59,7 @@
     border-radius: 3px;
   }
 
-  &__Form input {
+  &__form input {
     width: 230px;
     height: 35px;
     padding: 5px 15px;
@@ -69,11 +69,11 @@
     outline: none;
   }
 
-  &__Form input::placeholder {
+  &__form input::placeholder {
     color: #777777;
   }
 
-  &__Form button {
+  &__form button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -84,7 +84,7 @@
     cursor: pointer;
   }
 
-  &__Form button::after {
+  &__form button::after {
     width: 24px;
     height: 24px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18.031 16.6168L22.3137 20.8995L20.8995 22.3137L16.6168 18.031C15.0769 19.263 13.124 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20 13.124 19.263 15.0769 18.031 16.6168ZM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748Z' fill='%23fff'%3E%3C/path%3E%3C/svg%3E");
@@ -92,7 +92,7 @@
     content: '';
   }
 
-  &__Text {
+  &__text {
     display: flex;
     justify-content: center;
     position: relative;
@@ -119,7 +119,7 @@
     }
   }
 
-  &__Text::before {
+  &__text::before {
     position: absolute;
     top: -15px;
     width: 30px;
@@ -130,13 +130,13 @@
   }
 }
 
-.StockChartPeriod {
+.stock-chart-period {
   display: flex;
   flex-wrap: wrap;
   margin-top: 10px;
 }
 
-.StockChartPeriod > label {
+.stock-chart-period > label {
   flex: 1 1;
   order: -1;
   min-width: 70px;
@@ -149,31 +149,31 @@
   cursor: pointer;
 }
 
-.StockChartPeriod > label:hover {
+.stock-chart-period > label:hover {
   opacity: 0.8;
 }
 
-.StockChartPeriod input {
+.stock-chart-period input {
   display: none;
 }
 
-.StockChartPeriod > div {
+.stock-chart-period > div {
   display: none;
   width: 100%;
   padding: 1.5em 1em;
   background-color: #fff;
 }
 
-.StockChartPeriod label:has(:checked) {
+.stock-chart-period label:has(:checked) {
   background-color: #2589d0;
   color: #f2f2f2;
 }
 
-.StockChartPeriod label:has(:checked) + div {
+.stock-chart-period label:has(:checked) + div {
   display: block;
 }
 
-.Chart {
+.chart {
   width: 100%;
   height: 512px;
   background-color: #191919;

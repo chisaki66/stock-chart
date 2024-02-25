@@ -105,17 +105,17 @@ function App() {
 
   return (
     <>
-      {errorMessage && !isShow && (
-        <div className="ErrorMessage">
+      {errorMessage && !isShow ? (
+        <div className="error-message">
           <p>{errorMessage}</p>
         </div>
-      )}
-      <div className="App">
-        <div className="Header">
-          {isShow && (
-            <div className="StockData">
+      ) : null}
+      <div className="app">
+        <div className="header">
+          {isShow ? (
+            <div className="stock-data">
               <h1>{stockData.name}</h1>
-              <ul className="StockDataList">
+              <ul className="stock-data-list">
                 <li>
                   始値
                   <br />
@@ -144,9 +144,9 @@ function App() {
               </ul>
               <p>※ 現地時刻の前日のデータを取得しています</p>
             </div>
-          )}
-          <div className="StockSearch">
-            <div className="StockSearch__Form">
+          ) : null}
+          <div className="stock-search">
+            <div className="stock-search__form">
               <input
                 type="text"
                 name="symbol"
@@ -156,7 +156,7 @@ function App() {
               />
               <button onClick={handleOnClick}></button>
             </div>
-            <div className="StockSearch__Text">
+            <div className="stock-search__text">
               <p>
                 銘柄のリストは{' '}
                 <a href="https://marketstack.com/search" target="_blank" rel="noopener noreferrer">
@@ -169,8 +169,8 @@ function App() {
             </div>
           </div>
         </div>
-        {isShow && (
-          <div className="StockChartPeriod">
+        {isShow ? (
+          <div className="stock-chart-period">
             <label>
               <input
                 type="radio"
@@ -236,8 +236,8 @@ function App() {
               3年
             </label>
           </div>
-        )}
-        <div className="Chart">{stockMonthData && <Line data={stockMonthData} />}</div>
+        ) : null}
+        <div className="chart">{stockMonthData && <Line data={stockMonthData} />}</div>
       </div>
     </>
   );
