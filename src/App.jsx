@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Chart, registerables } from 'chart.js';
-import { Line } from 'react-chartjs-2';
 import { format, subMonths } from 'date-fns';
 import './App.scss';
 import ErrorMessage from './components/ErrorMessage';
 import Header from './components/Header';
 import StockChartPeriod from './components/StockChartPeriod';
+import LineChart from './components/LineChart';
 
 Chart.register(...registerables);
 
@@ -116,7 +116,7 @@ function App() {
           getStockPeriodData={getStockPeriodData}
           handleOnChangeStockMonthPeriodDate={handleOnChangeStockMonthPeriodDate}
         />
-        <div className="chart">{stockMonthData && <Line data={stockMonthData} />}</div>
+        <LineChart stockMonthData={stockMonthData} />
       </div>
     </>
   );
