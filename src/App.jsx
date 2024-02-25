@@ -4,7 +4,7 @@ import { Chart, registerables } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { format, subDays, subMonths } from 'date-fns';
 import './App.scss';
-import ErrorMessage from './ErrorMessage';
+import ErrorMessage from './components/ErrorMessage';
 
 Chart.register(...registerables);
 
