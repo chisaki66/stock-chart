@@ -18,49 +18,50 @@ function App() {
   const [isShow, setShow] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const getStockData = (symbol) => {
-    axios
-      .get(`${URL}/tickers/${symbol}?access_key=${ACCESS_KEY}`)
-      .then((response) => {
+  const getStockData = async (symbol) => {
+    try {
+      await axios.get(`${URL}/tickers/${symbol}?access_key=${ACCESS_KEY}`).then((response) => {
         setStockData(response.data);
-      })
-      .catch((error) => {
-        console.error('Failed to fetch stock data', error.message);
-        setErrorMessage('株式データの取得に失敗しました');
-        setShow(false);
       });
+    } catch (error) {
+      console.error('Failed to fetch stock data', error.message);
+      setErrorMessage('株式データの取得に失敗しました');
+      setShow(false);
+    }
   };
 
-  const getStockPrice = (symbol) => {
-    axios
-      .get(`${URL}/tickers/${symbol}/eod/latest?access_key=${ACCESS_KEY}`)
-      .then((response) => {
-        setStockPrice(response.data);
-      })
-      .catch((error) => {
-        console.error('Failed to fetch stock data', error.message);
-        setErrorMessage('株式データの取得に失敗しました');
-        setShow(false);
-      });
+  const getStockPrice = async (symbol) => {
+    try {
+      await axios
+        .get(`${URL}/tickers/${symbol}/eod/latest?access_key=${ACCESS_KEY}`)
+        .then((response) => {
+          setStockPrice(response.data);
+        });
+    } catch (error) {
+      console.error('Failed to fetch stock data', error.message);
+      setErrorMessage('株式データの取得に失敗しました');
+      setShow(false);
+    }
   };
 
   const getStockPeriodData = async (symbol, period) => {
     let data = [];
     let labels = [];
-    await axios
-      .get(
-        `${URL}/eod?access_key=${ACCESS_KEY}&symbols=${symbol}&date_from=${period}&date_to=${format(new Date(), 'yyyy-MM-dd')}&limit=1000&sort=ASC`,
-      )
-      .then((response) => {
-        for (let stock of response.data.data) {
-          data.push(stock.close);
-          labels.push(format(stock.date, 'MM/dd/yyyy'));
-        }
-      })
-      .catch((error) => {
-        console.error('Failed to fetch stock data', error.message);
-        setErrorMessage('株式データの取得に失敗しました');
-      });
+    try {
+      await axios
+        .get(
+          `${URL}/eod?access_key=${ACCESS_KEY}&symbols=${symbol}&date_from=${period}&date_to=${format(new Date(), 'yyyy-MM-dd')}&limit=1000&sort=ASC`,
+        )
+        .then((response) => {
+          for (let stock of response.data.data) {
+            data.push(stock.close);
+            labels.push(format(stock.date, 'MM/dd/yyyy'));
+          }
+        });
+    } catch (error) {
+      console.error('Failed to fetch stock data', error.message);
+      setErrorMessage('株式データの取得に失敗しました');
+    }
     setStockMonthData({
       labels: labels,
       datasets: [
