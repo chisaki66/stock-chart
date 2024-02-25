@@ -5,6 +5,7 @@ import { Line } from 'react-chartjs-2';
 import { format, subDays, subMonths } from 'date-fns';
 import './App.scss';
 import ErrorMessage from './components/ErrorMessage';
+import Header from './components/Header';
 
 Chart.register(...registerables);
 
@@ -109,64 +110,14 @@ function App() {
     <>
       <ErrorMessage errorMessage={errorMessage} isShow={isShow} />
       <div className="app">
-        <div className="header">
-          {isShow ? (
-            <div className="stock-data">
-              <h1>{stockData.name}</h1>
-              <ul className="stock-data-list">
-                <li>
-                  始値
-                  <br />
-                  <b>{stockPrice.open}</b>
-                </li>
-                <li>
-                  高値
-                  <br />
-                  <b>{stockPrice.high}</b>
-                </li>
-                <li>
-                  安値
-                  <br />
-                  <b>{stockPrice.low}</b>
-                </li>
-                <li>
-                  終値
-                  <br />
-                  <b>{stockPrice.close}</b>
-                </li>
-                <li>
-                  出来高
-                  <br />
-                  <b>{stockPrice.volume}</b>
-                </li>
-              </ul>
-              <p>※ 現地時刻の前日のデータを取得しています</p>
-            </div>
-          ) : null}
-          <div className="stock-search">
-            <div className="stock-search__form">
-              <input
-                type="text"
-                name="symbol"
-                placeholder="例: AAPL"
-                value={stockSymbol}
-                onChange={handleOnChangeStockSymbol}
-              />
-              <button onClick={handleOnClick}></button>
-            </div>
-            <div className="stock-search__text">
-              <p>
-                銘柄のリストは{' '}
-                <a href="https://marketstack.com/search" target="_blank" rel="noopener noreferrer">
-                  こちら
-                </a>{' '}
-                からご参照ください
-                <br />
-                Symbol をご入力ください
-              </p>
-            </div>
-          </div>
-        </div>
+        <Header
+          isShow={isShow}
+          stockName={stockData.name}
+          stockPrice={stockPrice}
+          stockSymbol={stockSymbol}
+          onChange={handleOnChangeStockSymbol}
+          onClick={handleOnClick}
+        />
         {isShow ? (
           <div className="stock-chart-period">
             <label>
