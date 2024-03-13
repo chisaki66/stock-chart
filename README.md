@@ -6,7 +6,7 @@ This is my StockChart App.
 
 <br>検索した銘柄の株価をチャート形式で表示します
 
-[App Link](https://stock-chart-theta.vercel.app/)
+~~[SiteLink]()~~ 現在は非公開です
 
 |Title|Tech Stack|
 |:--|:--|
